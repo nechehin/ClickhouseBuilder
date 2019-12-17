@@ -241,12 +241,13 @@ class Connection extends \Illuminate\Database\Connection
      * Begin a fluent query against a database table.
      *
      * @param string $table
+     * @param string $as
      *
      * @return \Tinderbox\ClickhouseBuilder\Integrations\Laravel\Builder
      */
-    public function table($table)
+    public function table($table, $as = NULL)
     {
-        return $this->query()->from($table);
+        return $this->query()->from($table, $as);
     }
     
     /**

@@ -1,6 +1,8 @@
 # Clickhouse Query Builder
 [![Build Status](https://travis-ci.org/the-tinderbox/ClickhouseBuilder.svg?branch=master)](https://travis-ci.org/the-tinderbox/ClickhouseBuilder) [![Coverage Status](https://coveralls.io/repos/github/the-tinderbox/ClickhouseBuilder/badge.svg?branch=master)](https://coveralls.io/github/the-tinderbox/ClickhouseBuilder?branch=master)
 
+fork from https://github.com/the-tinderbox/ClickhouseBuilder
+
 # Requirements
 
 `php 7.1`
@@ -10,7 +12,7 @@
 Via composer
 
 ```bash
-composer require the-tinderbox/clickhouse-builder
+composer require nechehin/clickhouse-builder
 ```
 
 # Usage
