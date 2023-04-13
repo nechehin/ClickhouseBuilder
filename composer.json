@@ -28,9 +28,9 @@
     ]
   },
   "require": {
-    "php": "^7.3",
+    "php": "^7.3|^8.0",
     "myclabs/php-enum": "^1.5",
-    "nechehin/clickhouse-php-client": "^3.0"
+    "nechehin/clickhouse-php-client": "^4.0"
   },
   "require-dev": {
     "illuminate/database": "5.*",
