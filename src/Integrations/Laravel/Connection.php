@@ -287,20 +287,38 @@ class Connection extends \Illuminate\Database\Connection
     /**
      * Run a select statement against the database.
      *
+     * Compatible with Laravel 13's signature. For queries using file/table attachments,
+     * use {@see selectWithFiles} instead.
+     *
      * @param string $query
      * @param array  $bindings
-     * @param array  $tables
+     * @param bool   $useReadPdo  (ignored — Clickhouse has no read/write PDO split)
+     * @param array  $fetchUsing  (ignored — rows are returned as plain arrays by Clickhouse)
      *
      * @return array
      */
-    public function select($query, $bindings = [], $tables = [])
+    public function select($query, $bindings = [], $useReadPdo = true, array $fetchUsing = [])
     {
-        $result = $this->getClient()->readOne($query, $tables);
-        
+        return $this->selectWithFiles($query, $bindings);
+    }
+
+    /**
+     * Run a select statement against the database with optional attached files/tables.
+     *
+     * @param string $query
+     * @param array  $bindings
+     * @param array  $files
+     *
+     * @return array
+     */
+    public function selectWithFiles($query, $bindings = [], array $files = [])
+    {
+        $result = $this->getClient()->readOne($query, $files);
+
         $this->logQuery($result->getQuery()->getQuery(), [], $result->getStatistic()->getTime());
-        
+
         $this->setLastQueryStatistic($result->getStatistic());
-        
+
         return $result->getRows();
     }
     
@@ -472,13 +490,13 @@ class Connection extends \Illuminate\Database\Connection
      *
      * @param string $query
      * @param array  $bindings
-     * @param array $tables
+     * @param bool   $useReadPdo  (ignored — Clickhouse has no read/write PDO split)
      *
      * @return mixed
      */
-    public function selectOne($query, $bindings = [], $tables = [])
+    public function selectOne($query, $bindings = [], $useReadPdo = true)
     {
-        return $this->select($query, $bindings, $tables);
+        return $this->selectWithFiles($query, $bindings);
     }
     
     /**
